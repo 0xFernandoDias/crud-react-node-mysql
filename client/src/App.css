@@ -1,0 +1,37 @@
+* {
+  font-family: 'Roboto', sans-serif;
+}
+
+.App {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+}
+
+.information {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  align-items: center;
+  font-weight: bold;
+}
+
+.information input {
+  width: 300px;
+  height: 30px;
+  margin-bottom: 10px;
+  font-size: 20px;
+  padding-left: 5px;
+}
+
+.information button {
+  width: 310px;
+  height: 30px;
+  margin-top: 15px;
+}
+
+.information button:hover {
+  cursor: pointer;
+}
