@@ -22,7 +22,7 @@
   font-weight: bold;
 }
 
-.information input {
+input {
   width: 300px;
   height: 30px;
   margin-bottom: 10px;
@@ -44,6 +44,7 @@ employees {
   align-items: center;
   flex-direction: column;
   width: 100%;
+  justify-content: space-between;
 }
 
 .employee {
@@ -58,4 +59,10 @@ employees {
 
 .employee h3 {
   margin: 20px;
+}
+
+.inputs {
+  padding-top: 2%;
+  padding-left: 30%;
+  display: flexbox;
 }

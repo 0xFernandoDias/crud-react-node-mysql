@@ -12,6 +12,8 @@ function App() {
   const [position, setPosition] = useState("")
   const [wage, setWage] = useState(0)
 
+  const [newWage, setNewWage] = useState(0)
+
   const [employeeList, setEmployeeList] = useState([])
 
   const addEmployee = () => {
@@ -38,52 +40,81 @@ function App() {
     })
   }
 
+  const updateEmployeeWage = (id) => {
+    Axios.put(`${url}update`, { wage: newWage, id: id }).then((response) => {
+      setEmployeeList(employeeList.map((val) => {
+        return val.id === id ? { id: val.id, name: val.name, age: val.age, country: val.country, position: val.position, wage: newWage }
+          : val
+      }))
+    })
+  }
+
+  const deleteEmployee = (id) => {
+    Axios.delete(`${url}delete/${id}`).then((response) => {
+      setEmployeeList(employeeList.filter((val) => {
+        return val.id !== id 
+      }))
+    })
+  }
+
   return (
     <div className="App">
       <div className="information">
-        <label>Name:</label>
-        <input type="text" 
+        <label>Name: </label>
+        <input type="text"
           onChange={(event) => {
             setName(event.target.value)
           }}
         />
-        <label>Age:</label>
-        <input type="number" 
+        <label>Age: </label>
+        <input type="number"
           onChange={(event) => {
             setAge(event.target.value)
-          }}/>
-        <label>Country:</label>
-        <input type="text" 
+          }} />
+        <label>Country: </label>
+        <input type="text"
           onChange={(event) => {
             setCountry(event.target.value)
-          }}/>
-        <label>Position:</label>
-        <input type="text" 
+          }} />
+        <label>Position: </label>
+        <input type="text"
           onChange={(event) => {
             setPosition(event.target.value)
-          }}/>
-        <label>Wage (year):</label>
-        <input type="number" 
+          }} />
+        <label>Wage (year): </label>
+        <input type="number"
           onChange={(event) => {
             setWage(event.target.value)
-          }}/>
+          }} />
         <button type="button" onClick={addEmployee} className="btn btn-dark">Add employee</button>
-          <hr />
-          <button type="button" onClick={getEmployees} className="btn btn-secondary">Show employees list</button>
 
-          <div className="employees">
+        <hr />
 
-          
+        <button type="button" onClick={getEmployees} className="btn btn-secondary">Show employees list</button>
+
+        <div className="employees">
           {employeeList.map((val, key) => {
             return (
-            <div className="employee">
-              <h3> Name: {val.name} </h3>
-              <h3> Age: {val.age} </h3>
-              <h3> Country: {val.country} </h3>
-              <h3> Position: {val.position} </h3>
-              <h3> Wage: {val.wage} </h3>
-            </div>
-          )})}
+              <div className="employee">
+                <div>
+                  <h3> Name: {val.name} </h3>
+                  <h3> Age: {val.age} </h3>
+                  <h3> Country: {val.country} </h3>
+                  <h3> Position: {val.position} </h3>
+                  <h3> Wage: {val.wage} </h3>
+                </div>
+
+                <div className="inputs">
+                  <input type="text" placeholder="update the wage"
+                    onChange={(event) => {
+                      setNewWage(event.target.value)
+                    }} />
+                  <button className="btn btn-dark" onClick={() => updateEmployeeWage(val.id)}>{" "}Update</button>
+                  <button className="btn btn-secondary" onClick={() => {deleteEmployee(val.id)}}>Delete</button>
+                </div>
+              </div>
+            )
+          })}
         </div>
       </div>
     </div>
